@@ -19,8 +19,7 @@ import time
 def log_driving():
     # Create the first row for the raw input dataframe
     first_input = requests.get("http://localhost:6397/rest/options/liveInputs").json()
-    # Create the first row for the usage dataframe as well as the name of user
-    first_usage = requests.get("http://localhost:6397/rest/strategy/usage").json()
+    # Get name of user
     name = requests.get("http://localhost:6397/rest/profile/").json()["name"]
 
     # Convert to dataframe
@@ -38,7 +37,9 @@ def log_driving():
             input_logging = pd.concat([input_logging, new_row], ignore_index=True)
             time.sleep(.05)
     except KeyboardInterrupt:
+        usage = requests.get("http://localhost:6397/rest/strategy/usage").json()
+        usage_logging = pd.DataFrame().from_dict(usage[name])
         print("Logging Completed")
-        pass
-    
+        return input_logging, usage_logging
+
 
