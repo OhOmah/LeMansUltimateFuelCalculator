@@ -3,6 +3,10 @@ PURPOSE OF THIS SCRIPT:
 
 This script logs important driver data in Le Mans Ultimate (LMU) and saves to a .csv for further analysis
 
+TODO: 
+1. Remove logging to Pandas Dataframes, log data as json/dict variables and export as such. 
+This will lighten the load on users computers and speed up the program. We can do the analysis portion for 
+the analysis program 
 '''
 
 import pandas as pd 
@@ -36,3 +40,5 @@ def log_driving():
     except KeyboardInterrupt:
         print("Logging Completed")
         pass
+    
+
