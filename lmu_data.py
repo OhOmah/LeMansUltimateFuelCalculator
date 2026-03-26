@@ -449,7 +449,7 @@ def test():
     tele_data = info.LMUData.telemetry
 
     player_index = tele_data.playerVehicleIdx
-    selected_player_index = 0
+    selected_player_index = player_index
 
     player_scor_data = scor_data.vehScoringInfo[selected_player_index]
     player_tele_data = tele_data.telemInfo[selected_player_index]
