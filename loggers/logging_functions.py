@@ -21,7 +21,7 @@ def closeData(player_scor_data=player_scor_data,
             scor_data=scor_data,):
     '''
     PURPOSE: 
-    Takes data steams and closes 
+    Takes data streams and closes 
     '''      
     tele_data = None
     scor_data = None
@@ -29,3 +29,8 @@ def closeData(player_scor_data=player_scor_data,
     player_scor_data = None
 
     return None
+
+def pullPlayerName(player_scor_data = player_scor_data):
+    name = player_scor_data.mDriverName
+    return name
+
