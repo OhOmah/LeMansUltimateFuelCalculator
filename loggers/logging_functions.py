@@ -7,28 +7,29 @@ import lmu_data
 def defineData():
     info = lmu_data.SimInfo()
     tele_data = info.LMUData.telemetry
-    scor_data = info.lmuData.scoring
+    scor_data = info.LMUData.scoring
 
+    # Grab data ONLY from the player
     player_index = tele_data.playerVehicleIdx
     player_tele_data = tele_data.telemInfo[player_index]
     player_scor_data = scor_data.vehScoringInfo[player_index]
 
     return player_scor_data, player_tele_data, tele_data, scor_data
 
-def closeData(player_scor_data=player_scor_data, 
-            player_tele_data=player_tele_data, 
-            tele_data=tele_data, 
-            scor_data=scor_data,):
+def closeData(player_scor_data, 
+            player_tele_data, 
+            tele_data, 
+            scor_data,):
     '''
     PURPOSE: 
-    Takes data streams and closes 
+    Closes open data streams
     '''      
     tele_data = None
     scor_data = None
     player_tele_data = None
     player_scor_data = None
 
-    return None
+    return player_scor_data, player_tele_data, tele_data, scor_data
 
 def pullPlayerName(player_scor_data:str) -> str:
     name = player_scor_data.mDriverName
@@ -95,12 +96,14 @@ def pullVelocity(player_tele_data:float) -> float:
     veloZ = player_tele_data.mLocalVel.z
     return veloX, veloY, veloZ
 
+# TODO: Link to database programaticcly. 
+
 def combinedPull(): 
     # Open variables
     player_scor_data, player_tele_data, tele_data, scor_data = defineData()
 
     # Pull all the data
-    
+
     # Close variables
     closeData(player_scor_data, player_tele_data, tele_data, scor_data)
 
