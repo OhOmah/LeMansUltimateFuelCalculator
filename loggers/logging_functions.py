@@ -83,3 +83,25 @@ def pullThrottlePosition(player_tele_data:float) -> float:
     throttlePosition = player_tele_data.mUnfilteredThrottle
     return throttlePosition
 
+def pullAcceleration(player_tele_data:float) -> float:
+    accelX = player_tele_data.mLocalAccel.x
+    accelY = player_tele_data.mLocalAccel.y
+    accelZ = player_tele_data.mLocalAccel.z
+    return accelX, accelY, accelZ
+
+def pullVelocity(player_tele_data:float) -> float:
+    veloX = player_tele_data.mLocalVel.x
+    veloY = player_tele_data.mLocalVel.y 
+    veloZ = player_tele_data.mLocalVel.z
+    return veloX, veloY, veloZ
+
+def combinedPull(): 
+    # Open variables
+    player_scor_data, player_tele_data, tele_data, scor_data = defineData()
+
+    # Pull all the data
+    
+    # Close variables
+    closeData(player_scor_data, player_tele_data, tele_data, scor_data)
+
+
