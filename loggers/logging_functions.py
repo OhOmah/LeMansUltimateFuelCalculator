@@ -3,6 +3,7 @@ PURPOSE:
 Stores all functions in one python file to keep main script easy to read.
 '''
 import lmu_data
+import duckdb
 
 def defineData():
     info = lmu_data.SimInfo()
@@ -98,11 +99,19 @@ def pullVelocity(player_tele_data:float) -> float:
 
 # TODO: Link to database programaticcly. 
 
+def storeData(data):
+    # take pulled data and save it into a dedicated database
+    
+    # check if data already exist
+    pass
+
 def combinedPull(): 
     # Open variables
     player_scor_data, player_tele_data, tele_data, scor_data = defineData()
 
-    # Pull all the data
+    # Start timer, used a key variable to merge datapoints in different rates (in rates of .05s)
+
+    # Pull and store data into database 
 
     # Close variables
     closeData(player_scor_data, player_tele_data, tele_data, scor_data)
