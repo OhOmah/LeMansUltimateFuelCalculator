@@ -49,10 +49,10 @@ def pullSector(player_scor_data:int) -> int:
     return sector
 
 def pullStartFinishDist(player_scor_data:float) -> float:
-    lapDist = player_sccor_data.mLapDist
+    lapDist = player_scor_data.mLapDist
     return lapDist
 
-def pullLastLapTime(player_sccor_data:float) -> float:
+def pullLastLapTime(player_scor_data:float) -> float:
     # logs in seconds
     lastLapTime = player_scor_data.mLastLapTime
     return lastLapTime
@@ -97,6 +97,15 @@ def pullVelocity(player_tele_data:float) -> float:
     veloZ = player_tele_data.mLocalVel.z
     return veloX, veloY, veloZ
 
+def pullPitStatus(player_scor_data:int) -> int:
+    # 0=none, 1=request, 2=entering, 3=stopped, 4=exiting, 5=garage
+    pitStatus = player_scor_data.mPitState
+    return pitStatus
+
+def pullLapNumber(player_tele_data:int) -> int:
+    lapNumber = player_tele_data.mLapNumber
+    return lapNumber
+
 # TODO: Link to database programaticcly. 
 
 def storeData(data):
@@ -105,7 +114,7 @@ def storeData(data):
     player_scor_data, player_tele_data, tele_data, scor_data = defineData()
     out_lap = True
     while out_lap == True:
-        laps_completed = pullLapsCompleted(player_scor_data)
+        
     # take pulled data and save it into a dedicated database
     
     # check if data already exist
