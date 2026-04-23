@@ -115,9 +115,9 @@ def storeData(data):
     out_lap = True
     while out_lap == True:
         
-    # take pulled data and save it into a dedicated database
+        # take pulled data and save it into a dedicated database
     
-    # check if data already exist
-    pass
+        # check if data already exist
+        pass
 
 
