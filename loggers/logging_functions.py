@@ -5,6 +5,43 @@ Stores all functions in one python file to keep main script easy to read.
 import lmu_data
 import duckdb
 
+def initDB(db_path:str, schema_name:str, table_name: str):
+    con = duckdb.connect(db_path)
+
+    con.exceute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
+
+    con.exceute(f"""
+            CREATE TABLE IF NOT EXISTS {schema_name}.{table_name} (
+            timestamp           DOUBLE      PRIMARY KEY,
+            session_start       DOUBLE,
+            driver_name         VARCHAR,
+            lap_number          INTEGER,
+            laps_completed      INTEGER,
+            sector              INTEGER,
+            lap_dist            DOUBLE,
+            last_lap_time       DOUBLE,
+            in_pits             BOOLEAN,
+            pit_status          INTEGER,
+            fuel                DOUBLE,
+            fuel_capacity       DOUBLE,
+            tire_fl             DOUBLE,
+            tire_fr             DOUBLE,
+            tire_rl             DOUBLE,
+            tire_rr             DOUBLE,
+            steering            DOUBLE,
+            brake               DOUBLE,
+            throttle            DOUBLE,
+            accel_x             DOUBLE,
+            accel_y             DOUBLE,
+            accel_z             DOUBLE,
+            vel_x               DOUBLE,
+            vel_y               DOUBLE,
+            vel_z               DOUBLE
+        )
+    """)
+    
+    con.close()
+
 def defineData():
     info = lmu_data.SimInfo()
     tele_data = info.LMUData.telemetry
