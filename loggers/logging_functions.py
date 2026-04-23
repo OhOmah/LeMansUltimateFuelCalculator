@@ -100,20 +100,15 @@ def pullVelocity(player_tele_data:float) -> float:
 # TODO: Link to database programaticcly. 
 
 def storeData(data):
+    # first note when outlap is happening: 
+    print("Out lap in progress, logging will start after out lap is complete")
+    player_scor_data, player_tele_data, tele_data, scor_data = defineData()
+    out_lap = True
+    while out_lap == True:
+        laps_completed = pullLapsCompleted(player_scor_data)
     # take pulled data and save it into a dedicated database
     
     # check if data already exist
     pass
-
-def combinedPull(): 
-    # Open variables
-    player_scor_data, player_tele_data, tele_data, scor_data = defineData()
-
-    # Start timer, used a key variable to merge datapoints in different rates (in rates of .05s)
-
-    # Pull and store data into database 
-
-    # Close variables
-    closeData(player_scor_data, player_tele_data, tele_data, scor_data)
 
 
