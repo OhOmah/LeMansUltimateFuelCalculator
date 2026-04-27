@@ -5,7 +5,7 @@ Stores all functions in one python file to keep main script easy to read.
 import lmu_data
 import duckdb
 
-def initDB(db_path:str, schema_name:str, table_name: str):
+def initTelDB(db_path:str, schema_name:str, table_name: str):
     con = duckdb.connect(db_path)
 
     con.exceute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
