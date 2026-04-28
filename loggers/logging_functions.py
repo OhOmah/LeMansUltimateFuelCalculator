@@ -5,25 +5,41 @@ Stores all functions in one python file to keep main script easy to read.
 import lmu_data
 import duckdb
 
-def initTelDB(db_path:str, schema_name:str, table_name: str):
+def initDB(db_path: str, schema_name: str):
     con = duckdb.connect(db_path)
 
-    con.exceute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
+    con.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
 
-    con.exceute(f"""
-            CREATE TABLE IF NOT EXISTS {schema_name}.{table_name} (
-            timestamp           DOUBLE      PRIMARY KEY,
-            session_start       DOUBLE,
+    # Start with collecting information that's collected once into 1 table
+    con.execute(f"""
+        CREATE TABLE IF NOT EXISTS {schema_name}.sessions (
+            session_start       DOUBLE      PRIMARY KEY,
             driver_name         VARCHAR,
+            fuel_capacity       DOUBLE
+        )
+    """)
+
+    # Data that changes per lap
+    con.execute(f"""
+        CREATE TABLE IF NOT EXISTS {schema_name}.laps (
+            session_start       DOUBLE      REFERENCES {schema_name}.sessions(session_start),
             lap_number          INTEGER,
-            laps_completed      INTEGER,
+            last_lap_time       DOUBLE,
+            PRIMARY KEY (session_start, lap_number)
+        )
+    """)
+
+    # All data that is collected at each frequency tick. 
+    con.execute(f"""
+        CREATE TABLE IF NOT EXISTS {schema_name}.telemetry (
+            timestamp           DOUBLE      PRIMARY KEY,
+            session_start       DOUBLE      REFERENCES {schema_name}.sessions(session_start),
+            lap_number          INTEGER,
             sector              INTEGER,
             lap_dist            DOUBLE,
-            last_lap_time       DOUBLE,
             in_pits             BOOLEAN,
             pit_status          INTEGER,
             fuel                DOUBLE,
-            fuel_capacity       DOUBLE,
             tire_fl             DOUBLE,
             tire_fr             DOUBLE,
             tire_rl             DOUBLE,
@@ -36,10 +52,12 @@ def initTelDB(db_path:str, schema_name:str, table_name: str):
             accel_z             DOUBLE,
             vel_x               DOUBLE,
             vel_y               DOUBLE,
-            vel_z               DOUBLE
+            vel_z               DOUBLE,
+            FOREIGN KEY (session_start, lap_number) 
+                REFERENCES {schema_name}.laps(session_start, lap_number)
         )
     """)
-    
+
     con.close()
 
 def defineData():
